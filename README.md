@@ -129,169 +129,169 @@ console.log(context.activity.membersAdded);
 
 Now, let's change the echo logic triggered when the bot receives a message:
 
-    ``` javascript
-    
-    this.onMessage(async (context, next) => {
-    if (context.activity.text === "Hi"){
-    await context.sendActivity(`Hello ${ context.activity.from.name }`);
-    }else{
-    await context.sendActivity(`You said '${ context.activity.text }'`);
-    }
-    console.log(context);
-    
-    ```
+``` javascript
+
+this.onMessage(async (context, next) => {
+if (context.activity.text === "Hi"){
+await context.sendActivity(`Hello ${ context.activity.from.name }`);
+}else{
+await context.sendActivity(`You said '${ context.activity.text }'`);
+}
+console.log(context);
+
+```
 
 ### Prompt the user for his name with a rich card
 
 Let's create a rich card first. This can be down with the help of the Card Designer (https://adaptivecards.io/designer/):
 
-    ``` javascript
-    
-    {
-        "type": "AdaptiveCard",
-        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-        "version": "1.2",
-        "body": [
-            {
-                "type": "ColumnSet",
-                "columns": [
-                    {
-                        "type": "Column",
-                        "items": [
-                            {
-                                "type": "TextBlock",
-                                "text": "BMW TechExcellence",
-                                "wrap": true,
-                                "id": "title",
-                                "fontType": "Monospace",
-                                "size": "Medium",
-                                "weight": "Bolder",
-                                "color": "Light",
-                                "isSubtle": true
-                            }
-                        ],
-                        "width": 90
-                    },
-                    {
-                        "type": "Column",
-                        "width": 10,
-                        "items": [
-                            {
-                                "type": "Image",
-                                "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BMW_logo_%28gray%29.svg/1200px-BMW_logo_%28gray%29.svg.png",
-                                "size": "Small"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "type": "TextBlock",
-                "text": "Welcome to this hands-on session about chatbots. I want to address you directly, so it would be better if you can provide more information about yourself.",
-                "wrap": true,
-                "id": "intro",
-                "maxLines": 4,
-                "height": "stretch",
-                "fontType": "Default"
-            },
-            {
-                "type": "Container",
-                "items": [
-                    {
-                        "type": "TextBlock",
-                        "text": "Username",
-                        "wrap": true,
-                        "id": "your_name",
-                        "weight": "Bolder"
-                    },
-                    {
-                        "type": "Input.Text",
-                        "placeholder": "your name",
-                        "value": "",
-                        "id": "username"
-                    }
-                ]
-            },
-            {
-                "type": "ActionSet",
-                "actions": [
-                    {
-                        "type": "Action.Submit",
-                        "title": "Submit",
-                        "style": "positive"
-                    }
-                ]
-            }
-        ]
-    }
-    
-    ```
+``` javascript
+
+{
+    "type": "AdaptiveCard",
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.2",
+    "body": [
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "BMW TechExcellence",
+                            "wrap": true,
+                            "id": "title",
+                            "fontType": "Monospace",
+                            "size": "Medium",
+                            "weight": "Bolder",
+                            "color": "Light",
+                            "isSubtle": true
+                        }
+                    ],
+                    "width": 90
+                },
+                {
+                    "type": "Column",
+                    "width": 10,
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BMW_logo_%28gray%29.svg/1200px-BMW_logo_%28gray%29.svg.png",
+                            "size": "Small"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "TextBlock",
+            "text": "Welcome to this hands-on session about chatbots. I want to address you directly, so it would be better if you can provide more information about yourself.",
+            "wrap": true,
+            "id": "intro",
+            "maxLines": 4,
+            "height": "stretch",
+            "fontType": "Default"
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "Username",
+                    "wrap": true,
+                    "id": "your_name",
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Input.Text",
+                    "placeholder": "your name",
+                    "value": "",
+                    "id": "username"
+                }
+            ]
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Submit",
+                    "style": "positive"
+                }
+            ]
+        }
+    ]
+}
+
+```
 
 Now we want to show this newly created card to our new users:
     
-    ``` javascript
-    
-    this.onMembersAdded(async (context, next) => {
-            const membersAdded = context.activity.membersAdded;
-            const welcomeText = 'Hello and welcome!';
-            for (let cnt = 0; cnt < membersAdded.length; ++cnt) {
-                if (membersAdded[cnt].id !== context.activity.recipient.id) {
-                    const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);  // We define the card                   
-                    await context.sendActivity({ attachments: [welcomeCard] }); // we send the card
-                }
+``` javascript
+
+this.onMembersAdded(async (context, next) => {
+        const membersAdded = context.activity.membersAdded;
+        const welcomeText = 'Hello and welcome!';
+        for (let cnt = 0; cnt < membersAdded.length; ++cnt) {
+            if (membersAdded[cnt].id !== context.activity.recipient.id) {
+                const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);  // We define the card                   
+                await context.sendActivity({ attachments: [welcomeCard] }); // we send the card
             }
-            // By calling next() you ensure that the next BotHandler is run.
-            await next();
-        });
-        
-    ```
+        }
+        // By calling next() you ensure that the next BotHandler is run.
+        await next();
+    });
+    
+```
     
 ### Save Conversation & User States    
 
 We need first to import libraries and to initialize the memory storage & conversation state in the index.js file
 
-    ``` javascript
-    
-    const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
-    const memoryStorage = new MemoryStorage();
-    const conversationState = new ConversationState(memoryStorage);
-    const userState = new UserState(memoryStorage);
-    
+``` javascript
+
+const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
+const memoryStorage = new MemoryStorage();
+const conversationState = new ConversationState(memoryStorage);
+const userState = new UserState(memoryStorage);
+
     ```
  We need to pass all these variables to the bot constructor
 
-    ``` javascript
-    
-    const myBot = new EchoBot(conversationState, userState); 
-    
-    ``` 
+``` javascript
+
+const myBot = new EchoBot(conversationState, userState); 
+
+``` 
     
 We pass these variables to the code in bot.js 
 
-    ``` javascript
-    
-    constructor(conversationState, userState) {
-    super();
-    if (!conversationState) throw new Error('[DialogBot]: Missing parameter. conversationState is required');
-    if (!userState) throw new Error('[DialogBot]: Missing parameter. userState is required');
-    this.conversationState = conversationState;
-    this.userState = userState;
-    this.dialogState = this.conversationState.createProperty('DialogState'); 
-    
-    ``` 
+``` javascript
+
+constructor(conversationState, userState) {
+super();
+if (!conversationState) throw new Error('[DialogBot]: Missing parameter. conversationState is required');
+if (!userState) throw new Error('[DialogBot]: Missing parameter. userState is required');
+this.conversationState = conversationState;
+this.userState = userState;
+this.dialogState = this.conversationState.createProperty('DialogState'); 
+
+``` 
   
 Finally we override the ActivityHandler.run() method to save state changes after the bot logic completes.
    
-    ``` javascript
-   
-    async run(context) {
-        await super.run(context);
-        // Save any state changes. The load happened during the execution of the Dialog.
-        await this.conversationState.saveChanges(context, false);
-        await this.userState.saveChanges(context, false);
-    }
-    
-    ``` 
+``` javascript
+
+async run(context) {
+    await super.run(context);
+    // Save any state changes. The load happened during the execution of the Dialog.
+    await this.conversationState.saveChanges(context, false);
+    await this.userState.saveChanges(context, false);
+}
+
+``` 
     
 ### Add NLP Capabilities to our bot
 
