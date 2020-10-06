@@ -1,0 +1,77 @@
+{
+    "type": "AdaptiveCard",
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.2",
+    "body": [
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "BMW TechExcellence",
+                            "wrap": true,
+                            "id": "title",
+                            "fontType": "Monospace",
+                            "size": "Medium",
+                            "weight": "Bolder",
+                            "color": "Light",
+                            "isSubtle": true
+                        }
+                    ],
+                    "width": 90
+                },
+                {
+                    "type": "Column",
+                    "width": 10,
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BMW_logo_%28gray%29.svg/1200px-BMW_logo_%28gray%29.svg.png",
+                            "size": "Small"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "TextBlock",
+            "text": "Welcome to this hands-on session about chatbots. I want to address you directly, so it would be better if you can provide more information about yourself.",
+            "wrap": true,
+            "id": "intro",
+            "maxLines": 4,
+            "height": "stretch",
+            "fontType": "Default"
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "Username",
+                    "wrap": true,
+                    "id": "your_name",
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Input.Text",
+                    "placeholder": "your name",
+                    "value": "",
+                    "id": "username"
+                }
+            ]
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Submit",
+                    "style": "positive"
+                }
+            ]
+        }
+    ]
+}
