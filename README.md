@@ -15,10 +15,15 @@ Welcome to the TechExcellence Operation Day and thank you for your interest into
 ## Create Ressource needed 
 
 1.  Create a new Web App Bot 
+
     1. "+" symbol should be shown under Azure Services) - or
+    
     1. Expand the Menu bar of the left side of the Home portal and click on "+ Create a ressource".
+    
     1. You will be forwarded to Azure Marketplace.
+    
     1. Type "Web App Bot" in the search field. 
+    
     1. Click Create 
 
 2. Fill creationn form
