@@ -113,19 +113,17 @@ endpoint
 
 Let's change the welcome text when a new user joins the conversation:
     
-    ``` javascript
-    
-    if (membersAdded[cnt].id !== context.activity.recipient.id) {
-    await context.sendActivity('Hello and welcome to the BMW Technical Excellence Day!');
-    await context.sendActivity('My name is: ' + context.activity.membersAdded[0].name);
-    await context.sendActivity('I am an echo bot!');
-    await context.sendActivity('You are user number:' + cnt);
-    await context.sendActivity('Your id is:' + context.activity.membersAdded[cnt].id);
-    await context.sendActivity('Please say something to test me.');
-    console.log(context.activity.membersAdded);
-    }
-    
-    ```
+```javascript
+if (membersAdded[cnt].id !== context.activity.recipient.id) {
+await context.sendActivity('Hello and welcome to the BMW Technical Excellence Day!');
+await context.sendActivity('My name is: ' + context.activity.membersAdded[0].name);
+await context.sendActivity('I am an echo bot!');
+await context.sendActivity('You are user number:' + cnt);
+await context.sendActivity('Your id is:' + context.activity.membersAdded[cnt].id);
+await context.sendActivity('Please say something to test me.');
+console.log(context.activity.membersAdded);
+}
+```
 
 ### Change new message logic
 
@@ -324,48 +322,44 @@ g.	App Insights Location => West Europe
 
 We create a function that retrieves our LUIS Configuration
 
-  ``` javascript
-  
-    const { LuisRecognizer } = require('botbuilder-ai');
+``` javascript
+const { LuisRecognizer } = require('botbuilder-ai');
 
-    class supportRecognizer {
-        constructor(config) {
-            const luisIsConfigured = config && config.applicationId && config.endpointKey && config.endpoint;
-            if (luisIsConfigured) {
-                const recognizerOptions = {
-                    apiVersion: 'v3'
-                };
+class supportRecognizer {
+    constructor(config) {
+        const luisIsConfigured = config && config.applicationId && config.endpointKey && config.endpoint;
+        if (luisIsConfigured) {
+            const recognizerOptions = {
+                apiVersion: 'v3'
+            };
 
-                this.recognizer = new LuisRecognizer(config, recognizerOptions);
-            }
-        }
-
-        get isConfigured() {
-            return (this.recognizer !== undefined);
-        }
-
-        async executeLuisQuery(context) {
-            return await this.recognizer.recognize(context);
+            this.recognizer = new LuisRecognizer(config, recognizerOptions);
         }
     }
-    module.exports.supportRecognizer = supportRecognizer;
-    
-    ``` 
+
+    get isConfigured() {
+        return (this.recognizer !== undefined);
+    }
+
+    async executeLuisQuery(context) {
+        return await this.recognizer.recognize(context);
+    }
+}
+module.exports.supportRecognizer = supportRecognizer;
+``` 
 
 We import the needed libraries and the previous function in the index.js file
 
-    ``` javascript
-    
-    const { LuisRecognizer } = require('botbuilder-ai');
-    const { supportRecognizer } = require('./bots/resources/recognizers/supportRecognizer');
-    const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
-    const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
+```javascript
+const { LuisRecognizer } = require('botbuilder-ai');
+const { supportRecognizer } = require('./bots/resources/recognizers/supportRecognizer');
+const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
+const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
 const recognizerOptions = {
-        apiVersion: 'v3'
-    };
+    apiVersion: 'v3'
+};
 const luisRecognizer = new supportRecognizer(luisConfig, recognizerOptions);
-
-    ``` 
+``` 
 
 ### Create a Waterfall dialog
  
