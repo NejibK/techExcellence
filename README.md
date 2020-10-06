@@ -75,7 +75,7 @@ endpoint
 
 2. Click "Go -->". A new window with your default echo-bot root opens. 
 
-3.	Main dependencies in the package.json file
+3.	 package.json: Main dependencies
     
     3.1. "botbuilder" => The microsoft bot framework library (version 4.6)
     
@@ -83,15 +83,33 @@ endpoint
    
     3.3. "restify" => which will allow us to create our RESTful web service
     
-4.	index.js
+4.	index.js: 
 
     4.1. Middlewares implemented or that you would implement
 
     4.2. Endpoint of your app and how your restful web service responds when a post request is sent to the endpoint.
 
-5. bot.js
+5. bot.js: 
 
-    5.1. Let's change how the bot reacts when a new user joins the conversation:
+    5.1. Chatbot logic, states, and dialogs
+
+## Exercises
+
+- Change new user greeting: The bot should great the user differently
+
+- Change new message logic: The bot should differentiate certain user inputs from the rest
+
+- Prompt the user for his name with a rich card: The bot should prompt the user for his name and address him with the given name
+
+- Add NLP Capabilities to our bot: The bot should be able to recognize user intent with different utterances
+
+- Create a Waterfall dialog: The bot is able to implement a basic conversation flow
+
+## Code to Exercises
+
+### Change new user greeting
+
+Let's change the welcome text when a new user joins the conversation:
     
     ```javascript
     if (membersAdded[cnt].id !== context.activity.recipient.id) {
@@ -104,6 +122,33 @@ endpoint
     console.log(context.activity.membersAdded);
     }
     ```
+
+### Change new message logic
+
+Now, let's change the echo logic triggered when the bot receives a message:
+
+    ```javascript
+    this.onMessage(async (context, next) => {
+    if (context.activity.text === "Hi"){
+    await context.sendActivity(`Hello ${ context.activity.from.name }`);
+    }else{
+    await context.sendActivity(`You said '${ context.activity.text }'`);
+    }
+    console.log(context);
+    ```
+
+### Prompt the user for his name with a rich card
+
+
+
+### Add NLP Capabilities to our bot
+
+
+
+### Create a Waterfall dialog
+
+
+
 
 2.	Let's check in the constructor how the bot handles new messages and make some changes
 this.onMessage(async (context, next) => {
