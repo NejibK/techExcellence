@@ -1,38 +1,38 @@
 # Welcome to the TechEx Operation Day  
 
-Welcome to the TechExcellence Operation Day and thank you for your interest into AI Chatbots and Natural Language Processing (NLP).
+Welcome to the TechExcellence Operation Day and thank you for your interest into AI Chatbots.
 
 ## Login to MS Azure
 
-1. We have 20 MS Azure Accounts at your disposal. Please request your credetials to Nejib or Amin (Workshop presenters), to be able to participate to this hand-on workshop (recommended).
+1. Please request your credetials  to the Workshop presenters, to be able to participate to this hand-on workshop (recommended).
 
-2. Once you have you credentials, please launch your favorit navigator and go to: https://portal.azure.com
+2. Launch your favorit navigator and go to: https://portal.azure.com
 
-3. Enter the username & password that was provided to you. You should be forwarded to the MS Azure Home portal.
+3. Enter username & password that were provided to you. You should be forwarded to MS Azure Home portal.
 
 4. These Credentials are available for XXXX TIME and enable you to XXXXX SERVICES / BUDGET ...  
 
-## You first step on MS Azure
+## Create Ressource needed 
 
-1.  Create a new ressource (a "+" symbol should be shown under Azure Services). Also, you can expand the Menu bar of the left side of the Home portal and click on "+ Create a ressource". You will be forwarded to Azure Marketplace.
+1.  Create a new Web App Bot 
+    1.1. "+" symbol should be shown under Azure Services) - or 
+    1.1. Expand the Menu bar of the left side of the Home portal and click on "+ Create a ressource".
+    1.2. You will be forwarded to Azure Marketplace.
+    1.3. Type "Web App Bot" in the search field. 
+    1.4. Click Create 
 
-2. Type "Web App Bot" in the search field. 
-
-3. Click Create 
-
-4. Name your bot "Echo_<number>_<name>"
-
-5. Subscription should be automatically selected, if not select the active one
-
-6. Create a new ressource group: use the naming pattern TechExcellence_<number>_<name>
-
-7. Location: Germany West Central
-
-8. Pricing F0 (10K first messages are free)
-
-9. Appname is automatically defined -> not to be changed
-
-
+2. Fill creationn form
+    2.1. Name your bot "Echo_<number>_<name>"
+    2.2. Subscription should be automatically selected, if not select the active one
+    2.3. Create a new ressource group: use the naming pattern TechExcellence_<number>_<name>
+    2.4. Location: Germany West Central
+    2.5. Pricing F0 (10K first messages are free)
+    2.5. Appname is automatically defined -> not to be changed
+    2.6. SDK Language: Node.JS
+    2.7. Template: Echo Bot
+    2.8. Application Insights: Off
+    
+3. App Service & Webb App Bot will be created in your newly created Ressource Group 
 
 # Echo Bot template
 
