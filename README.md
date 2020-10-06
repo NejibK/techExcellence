@@ -1,4 +1,40 @@
-# Echo Bot template TEST
+# Welcome to the TechEx Operation Day  
+
+Welcome to the TechExcellence Operation Day and thank you for your interest into AI Chatbots and Natural Language Processing (NLP).
+
+## Login to MS Azure
+
+1. We have 20 MS Azure Accounts at your disposal. Please request your credetials to Nejib or Amin (Workshop presenters), to be able to participate to this hand-on workshop (recommended).
+
+2. Once you have you credentials, please launch your favorit navigator and go to: https://portal.azure.com
+
+3. Enter the username & password that was provided to you. You should be forwarded to the MS Azure Home portal.
+
+4. These Credentials are available for XXXX TIME and enable you to XXXXX SERVICES / BUDGET ...  
+
+## You first step on MS Azure
+
+1.  Create a new ressource (a "+" symbol should be shown under Azure Services). Also, you can expand the Menu bar of the left side of the Home portal and click on "+ Create a ressource". You will be forwarded to Azure Marketplace.
+
+2. Type "Web App Bot" in the search field. 
+
+3. Click Create 
+
+4. Name your bot "Echo_<number>_<name>"
+
+5. Subscription should be automatically selected, if not select the active one
+
+6. Create a new ressource group: use the naming pattern TechExcellence_<number>_<name>
+
+7. Location: Germany West Central
+
+8. Pricing F0 (10K first messages are free)
+
+9. Appname is automatically defined -> not to be changed
+
+
+
+# Echo Bot template
 
 This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a simple bot that accepts input from the user and echoes it back.
 
