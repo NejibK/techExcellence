@@ -244,7 +244,7 @@ Now we want to show this newly created card to our new users:
 
 We need first to import libraries and to initialize the memory storage & conversation state in the index.js file
 
-    ```javascript
+    ```
     const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
     const memoryStorage = new MemoryStorage();
     const conversationState = new ConversationState(memoryStorage);
@@ -253,30 +253,36 @@ We need first to import libraries and to initialize the memory storage & convers
  We need to pass all these variables to the bot constructor
 
     ```javascript
+    
     const myBot = new EchoBot(conversationState, userState); 
+    
     ``` 
     
 We pass these variables to the code in bot.js 
 
     ```javascript
-     constructor(conversationState, userState) {
-        super();
-        if (!conversationState) throw new Error('[DialogBot]: Missing parameter. conversationState is required');
-        if (!userState) throw new Error('[DialogBot]: Missing parameter. userState is required');
-        this.conversationState = conversationState;
-        this.userState = userState;
-        this.dialogState = this.conversationState.createProperty('DialogState'); 
+    
+    constructor(conversationState, userState) {
+    super();
+    if (!conversationState) throw new Error('[DialogBot]: Missing parameter. conversationState is required');
+    if (!userState) throw new Error('[DialogBot]: Missing parameter. userState is required');
+    this.conversationState = conversationState;
+    this.userState = userState;
+    this.dialogState = this.conversationState.createProperty('DialogState'); 
+    
     ``` 
   
 Finally we override the ActivityHandler.run() method to save state changes after the bot logic completes.
    
-   ```javascript
+   ``` javascript
+   
     async run(context) {
         await super.run(context);
         // Save any state changes. The load happened during the execution of the Dialog.
         await this.conversationState.saveChanges(context, false);
         await this.userState.saveChanges(context, false);
     }
+    
     ``` 
     
 ### Add NLP Capabilities to our bot
