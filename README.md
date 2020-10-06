@@ -27,14 +27,23 @@ Welcome to the TechExcellence Operation Day and thank you for your interest into
     1. Click Create 
 
 2. Fill creationn form
+
     2.1. Name your bot "Echo_<number>_<name>"
+    
     2.2. Subscription should be automatically selected, if not select the active one
+
     2.3. Create a new ressource group: use the naming pattern TechExcellence_<number>_<name>
+
     2.4. Location: Germany West Central
+
     2.5. Pricing F0 (10K first messages are free)
+
     2.5. Appname is automatically defined -> not to be changed
+
     2.6. SDK Language: Node.JS
+
     2.7. Template: Echo Bot
+
     2.8. Application Insights: Off
     
 3. App Service & Webb App Bot will be created in your newly created Ressource Group 
