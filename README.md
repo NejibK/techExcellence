@@ -324,7 +324,8 @@ g.	App Insights Location => West Europe
 
 We create a function that retrieves our LUIS Configuration
 
-  ```javascript
+  ``` javascript
+  
     const { LuisRecognizer } = require('botbuilder-ai');
 
     class supportRecognizer {
@@ -348,11 +349,13 @@ We create a function that retrieves our LUIS Configuration
         }
     }
     module.exports.supportRecognizer = supportRecognizer;
+    
     ``` 
 
 We import the needed libraries and the previous function in the index.js file
 
-    ```javascript
+    ``` javascript
+    
     const { LuisRecognizer } = require('botbuilder-ai');
     const { supportRecognizer } = require('./bots/resources/recognizers/supportRecognizer');
     const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
@@ -361,6 +364,7 @@ const recognizerOptions = {
         apiVersion: 'v3'
     };
 const luisRecognizer = new supportRecognizer(luisConfig, recognizerOptions);
+
     ``` 
 
 ### Create a Waterfall dialog
