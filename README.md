@@ -144,88 +144,88 @@ Now, let's change the echo logic triggered when the bot receives a message:
 Let's create a rich card first. This can be down with the help of the Card Designer (https://adaptivecards.io/designer/):
 
     ```javascript
-{
-    "type": "AdaptiveCard",
-    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-    "version": "1.2",
-    "body": [
-        {
-            "type": "ColumnSet",
-            "columns": [
-                {
-                    "type": "Column",
-                    "items": [
-                        {
-                            "type": "TextBlock",
-                            "text": "BMW TechExcellence",
-                            "wrap": true,
-                            "id": "title",
-                            "fontType": "Monospace",
-                            "size": "Medium",
-                            "weight": "Bolder",
-                            "color": "Light",
-                            "isSubtle": true
-                        }
-                    ],
-                    "width": 90
-                },
-                {
-                    "type": "Column",
-                    "width": 10,
-                    "items": [
-                        {
-                            "type": "Image",
-                            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BMW_logo_%28gray%29.svg/1200px-BMW_logo_%28gray%29.svg.png",
-                            "size": "Small"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "type": "TextBlock",
-            "text": "Welcome to this hands-on session about chatbots. I want to address you directly, so it would be better if you can provide more information about yourself.",
-            "wrap": true,
-            "id": "intro",
-            "maxLines": 4,
-            "height": "stretch",
-            "fontType": "Default"
-        },
-        {
-            "type": "Container",
-            "items": [
-                {
-                    "type": "TextBlock",
-                    "text": "Username",
-                    "wrap": true,
-                    "id": "your_name",
-                    "weight": "Bolder"
-                },
-                {
-                    "type": "Input.Text",
-                    "placeholder": "your name",
-                    "value": "",
-                    "id": "username"
-                }
-            ]
-        },
-        {
-            "type": "ActionSet",
-            "actions": [
-                {
-                    "type": "Action.Submit",
-                    "title": "Submit",
-                    "style": "positive"
-                }
-            ]
-        }
-    ]
-}
+    {
+        "type": "AdaptiveCard",
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "version": "1.2",
+        "body": [
+            {
+                "type": "ColumnSet",
+                "columns": [
+                    {
+                        "type": "Column",
+                        "items": [
+                            {
+                                "type": "TextBlock",
+                                "text": "BMW TechExcellence",
+                                "wrap": true,
+                                "id": "title",
+                                "fontType": "Monospace",
+                                "size": "Medium",
+                                "weight": "Bolder",
+                                "color": "Light",
+                                "isSubtle": true
+                            }
+                        ],
+                        "width": 90
+                    },
+                    {
+                        "type": "Column",
+                        "width": 10,
+                        "items": [
+                            {
+                                "type": "Image",
+                                "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BMW_logo_%28gray%29.svg/1200px-BMW_logo_%28gray%29.svg.png",
+                                "size": "Small"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "TextBlock",
+                "text": "Welcome to this hands-on session about chatbots. I want to address you directly, so it would be better if you can provide more information about yourself.",
+                "wrap": true,
+                "id": "intro",
+                "maxLines": 4,
+                "height": "stretch",
+                "fontType": "Default"
+            },
+            {
+                "type": "Container",
+                "items": [
+                    {
+                        "type": "TextBlock",
+                        "text": "Username",
+                        "wrap": true,
+                        "id": "your_name",
+                        "weight": "Bolder"
+                    },
+                    {
+                        "type": "Input.Text",
+                        "placeholder": "your name",
+                        "value": "",
+                        "id": "username"
+                    }
+                ]
+            },
+            {
+                "type": "ActionSet",
+                "actions": [
+                    {
+                        "type": "Action.Submit",
+                        "title": "Submit",
+                        "style": "positive"
+                    }
+                ]
+            }
+        ]
+    }
     ```
 
 Now we want to show this newly created card to our new users:
     
-    ``` javascript
+    ```javascript
     this.onMembersAdded(async (context, next) => {
             const membersAdded = context.activity.membersAdded;
             const welcomeText = 'Hello and welcome!';
@@ -244,22 +244,21 @@ Now we want to show this newly created card to our new users:
 
 We need first to import libraries and to initialize the memory storage & conversation state in the index.js file
 
-    ``` javascript
+    ```javascript
     const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
     const memoryStorage = new MemoryStorage();
     const conversationState = new ConversationState(memoryStorage);
     const userState = new UserState(memoryStorage);
-
     ```
  We need to pass all these variables to the bot constructor
 
-    ``` javascript
+    ```javascript
     const myBot = new EchoBot(conversationState, userState); 
     ``` 
     
 We pass these variables to the code in bot.js 
 
-    ``` javascript
+    ```javascript
      constructor(conversationState, userState) {
         super();
         if (!conversationState) throw new Error('[DialogBot]: Missing parameter. conversationState is required');
@@ -271,7 +270,7 @@ We pass these variables to the code in bot.js
   
 Finally we override the ActivityHandler.run() method to save state changes after the bot logic completes.
    
-   ``` javascript
+   ```javascript
     async run(context) {
         await super.run(context);
         // Save any state changes. The load happened during the execution of the Dialog.
@@ -282,9 +281,34 @@ Finally we override the ActivityHandler.run() method to save state changes after
     
 ### Add NLP Capabilities to our bot
 
+1. Let's first create our NLP Model 
+
+    Go to eu.luis.ai
+    
+    Select the subscription and the authoring resource created before
+    
+    An app should appear
+    
+    Clic it to open
+    
+    In the menu on the top, clic "BUILD", intents and entities are displayed
+    
+    Explore and check how intents and entities are built
+
+
+4.	Now let's create a new node.js bot but this time we'll take the basic sample including language understanding (Basic_<number>_<name>)
+a.	Same Subscription, Resource Group, Location and Pricing Tier
+b.	App name not modified
+c.	LUIS App location => West Europe
+d.	LUIS Accounts => Create new BMW-TechExcellence-<number>
+e.	App Service Plan => Create new BMW-TechExcellence-Basic-<number> 
+f.	Insights On
+g.	App Insights Location => West Europe
+5.	We open the web app bot-service-4
+
 We create a function that retrieves our LUIS Configuration
 
-  ``` javascript
+  ```javascript
     const { LuisRecognizer } = require('botbuilder-ai');
 
     class supportRecognizer {
@@ -307,13 +331,12 @@ We create a function that retrieves our LUIS Configuration
             return await this.recognizer.recognize(context);
         }
     }
-
     module.exports.supportRecognizer = supportRecognizer;
     ``` 
 
 We import the needed libraries and the previous function in the index.js file
 
-    ``` javascript
+    ```javascript
     const { LuisRecognizer } = require('botbuilder-ai');
     const { supportRecognizer } = require('./bots/resources/recognizers/supportRecognizer');
     const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
@@ -325,65 +348,7 @@ const luisRecognizer = new supportRecognizer(luisConfig, recognizerOptions);
     ``` 
 
 ### Create a Waterfall dialog
-
-
-
-
-2.	Let's check in the constructor how the bot handles new messages and make some changes
-this.onMessage(async (context, next) => {
-if (context.activity.text === "Hi"){
-await context.sendActivity(`Hello ${ context.activity.from.name }`);
-}else{
-await context.sendActivity(`You said '${ context.activity.text }'`);
-}
-console.log(context);
  
-New Bot
-1.	Download the latest version of the emulator: https://aka.ms/abs/build/emulatordownload
-2.	Download the latest version of node.js https://nodejs.org/en/download/
-3.	If Visual Studio Code not installed and you wish to have it => https://code.visualstudio.com/download
- 
-4.	Now let's create a new node.js bot but this time we'll take the basic sample including language understanding (Basic_<number>_<name>)
-a.	Same Subscription, Resource Group, Location and Pricing Tier
-b.	App name not modified
-c.	LUIS App location => West Europe
-d.	LUIS Accounts => Create new BMW-TechExcellence-<number>
-e.	App Service Plan => Create new BMW-TechExcellence-Basic-<number> 
-f.	Insights On
-g.	App Insights Location => West Europe
-5.	We open the web app bot
-6.	We go to Build and Download the Bot Source Code, and extract the zip file to a folder
-7.	Open the extracted folder in your preferred IDE (with  Node.js / Javascript support) or if you are using VS Code just right clic on the folder and clic "open with code"
-8.	Let's open the package.json file and see what's changed
-a.	Botbuilder-ai and botbuilder-dialogs
-b.	Let's have a closer look
-9.	Terminal > New Terminal
-a.	npm install
-10.	Go to eu.luis.ai
-a.	Select the subscription and the authoring resource created before
-b.	An app should appear
-c.	Clic it to open
-d.	In the menu on the top, clic "BUILD", intents and entities are displayed
-e.	Explore and check how intents and entities are built
-11.	Now open the emulator and click open bot
-a.	URL http://localhost:3978/api/messages
-b.	App-ID and password can be found in the .env file (MicrosoftAppId, MicrosoftAppPassword)
-c.	In the Emulator settings (icon in the bottom left corner), click bypass ngrok for local addresses
-12.	What has changed: you see a card instead of just text
-a.	Let's Check bots\dialogsAndWelcomeBot.js => welcomeCard is loaded
-b.	Let's open welcomeCard.json in the resources folder => Difficult to read
-c.	Open: https://adaptivecards.io/designer/ and copy paste the content of the welcomeCard in the Card Payload Editor
- 
- 
-
-
-
-
-
-
-
-
-
 
 # [Tipps] To run the bot locally
 - Download the bot code from the Build blade in the Azure Portal (make sure you click "Yes" when asked "Include app settings in the downloaded zip file?").
