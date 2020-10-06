@@ -75,13 +75,13 @@ endpoint
 
 2. Click "Go -->". A new window with your default echo-bot root opens. 
 
-3.	 package.json: Main dependencies
+3. package.json: Main dependencies
     
-    - "botbuilder" => The microsoft bot framework library (version 4.6)
+    - botbuilder: The microsoft bot framework library (version 4.6)
     
-    - "dotenv" => library for managing environment variables
+    - dotenv: library for managing environment variables
    
-    - "restify" => which will allow us to create our RESTful web service
+    - restify: which will allow us to create our RESTful web service
     
 4.	index.js: 
 
@@ -95,17 +95,17 @@ endpoint
 
 ## Exercises
 
-- Change new user greeting: The bot should great the user differently
+1. Change new user greeting: The bot should great the user differently
 
-- Change new message logic: The bot should differentiate certain user inputs from the rest
+2. Change new message logic: The bot should differentiate certain user inputs from the rest
 
-- Prompt the user for his name with a rich card: The bot should prompt the user for his name and address him with the given name
+3. Prompt the user for his name with a rich card: The bot should prompt the user for his name and address him with the given name
 
-- Save Conversation & User States
+4. Save Conversation & User States
 
-- Add NLP Capabilities to our bot: The bot should be able to recognize user intent with different utterances
+5. Add NLP Capabilities to our bot: The bot should be able to recognize user intent with different utterances
 
-- Create a Waterfall dialog: The bot is able to implement a basic conversation flow
+6. Create a Waterfall dialog: The bot is able to implement a basic conversation flow
 
 ## Code to Exercises
 
@@ -113,7 +113,8 @@ endpoint
 
 Let's change the welcome text when a new user joins the conversation:
     
-    ```javascript
+    ``` javascript
+    
     if (membersAdded[cnt].id !== context.activity.recipient.id) {
     await context.sendActivity('Hello and welcome to the BMW Technical Excellence Day!');
     await context.sendActivity('My name is: ' + context.activity.membersAdded[0].name);
@@ -123,13 +124,15 @@ Let's change the welcome text when a new user joins the conversation:
     await context.sendActivity('Please say something to test me.');
     console.log(context.activity.membersAdded);
     }
+    
     ```
 
 ### Change new message logic
 
 Now, let's change the echo logic triggered when the bot receives a message:
 
-    ```javascript
+    ``` javascript
+    
     this.onMessage(async (context, next) => {
     if (context.activity.text === "Hi"){
     await context.sendActivity(`Hello ${ context.activity.from.name }`);
@@ -137,13 +140,15 @@ Now, let's change the echo logic triggered when the bot receives a message:
     await context.sendActivity(`You said '${ context.activity.text }'`);
     }
     console.log(context);
+    
     ```
 
 ### Prompt the user for his name with a rich card
 
 Let's create a rich card first. This can be down with the help of the Card Designer (https://adaptivecards.io/designer/):
 
-    ```javascript
+    ``` javascript
+    
     {
         "type": "AdaptiveCard",
         "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
@@ -221,11 +226,13 @@ Let's create a rich card first. This can be down with the help of the Card Desig
             }
         ]
     }
+    
     ```
 
 Now we want to show this newly created card to our new users:
     
-    ```javascript
+    ``` javascript
+    
     this.onMembersAdded(async (context, next) => {
             const membersAdded = context.activity.membersAdded;
             const welcomeText = 'Hello and welcome!';
@@ -238,21 +245,24 @@ Now we want to show this newly created card to our new users:
             // By calling next() you ensure that the next BotHandler is run.
             await next();
         });
+        
     ```
     
 ### Save Conversation & User States    
 
 We need first to import libraries and to initialize the memory storage & conversation state in the index.js file
 
-    ```
+    ``` javascript
+    
     const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
     const memoryStorage = new MemoryStorage();
     const conversationState = new ConversationState(memoryStorage);
     const userState = new UserState(memoryStorage);
+    
     ```
  We need to pass all these variables to the bot constructor
 
-    ```javascript
+    ``` javascript
     
     const myBot = new EchoBot(conversationState, userState); 
     
@@ -260,7 +270,7 @@ We need first to import libraries and to initialize the memory storage & convers
     
 We pass these variables to the code in bot.js 
 
-    ```javascript
+    ``` javascript
     
     constructor(conversationState, userState) {
     super();
@@ -274,7 +284,7 @@ We pass these variables to the code in bot.js
   
 Finally we override the ActivityHandler.run() method to save state changes after the bot logic completes.
    
-   ``` javascript
+    ``` javascript
    
     async run(context) {
         await super.run(context);
@@ -354,6 +364,15 @@ const luisRecognizer = new supportRecognizer(luisConfig, recognizerOptions);
     ``` 
 
 ### Create a Waterfall dialog
+ 
+ Step A 
+ 
+ 
+ Step B 
+ 
+ 
+ Step CL
+ 
  
 
 # [Tipps] To run the bot locally
