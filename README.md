@@ -1,8 +1,8 @@
-# Welcome to the TechEx Operation Day  
+# Welcome to the TechEx Operation Day  (5mn)
 
 Welcome to the TechExcellence Operation Day and thank you for your interest into AI Chatbots.
 
-## Login to MS Azure
+## Login to MS Azure (10mn)
 
 1. Please request your credetials  to the Workshop presenters, to be able to participate to this hand-on workshop (recommended).
 
@@ -12,7 +12,7 @@ Welcome to the TechExcellence Operation Day and thank you for your interest into
 
 4. These Credentials are available for XXXX TIME and enable you to XXXXX SERVICES / BUDGET ...  
 
-## Create Ressource needed 
+## Create Ressource needed (10mn)
 
 1.  Create a new Web App Bot 
 
@@ -101,15 +101,13 @@ endpoint
 
 3. Prompt the user for his name with a rich card: The bot should prompt the user for his name and address him with the given name
 
-4. Save Conversation & User States
+4. Add NLP Capabilities to our bot: The bot should be able to recognize user intent with different utterances
 
-5. Add NLP Capabilities to our bot: The bot should be able to recognize user intent with different utterances
-
-6. Create a Waterfall dialog: The bot is able to implement a basic conversation flow
+5. Create a Waterfall dialog: The bot is able to implement a basic conversation flow
 
 ## Code to Exercises
 
-### Change new user greeting
+### Change new user greeting (10 mn)
 
 Let's change the welcome text when a new user joins the conversation:
     
@@ -125,7 +123,7 @@ console.log(context.activity.membersAdded);
 }
 ```
 
-### Change new message logic
+### Change new message logic (5mn)
 
 Now, let's change the echo logic triggered when the bot receives a message:
 
@@ -141,7 +139,7 @@ console.log(context);
 
 ```
 
-### Prompt the user for his name with a rich card
+### Prompt the user for his name with a rich card (5mn)
 
 Let's create a rich card first. This can be down with the help of the Card Designer (https://adaptivecards.io/designer/):
 
@@ -230,6 +228,7 @@ Let's create a rich card first. This can be down with the help of the Card Desig
 Now we want to show this newly created card to our new users:
     
 ``` javascript
+const WelcomeCard = require('./bots/resources/cards/welcomeCard.json');
 
 this.onMembersAdded(async (context, next) => {
         const membersAdded = context.activity.membersAdded;
@@ -246,8 +245,188 @@ this.onMembersAdded(async (context, next) => {
     
 ```
     
-### Save Conversation & User States    
+### Add NLP Capabilities to our bot (15 mn)
 
+1. Create Cognitive Services
+    
+    1.1. In your same Ressource Group, add a new service
+    
+    1.2. Search "Language Understanding"
+    
+    1.3. creation options : "both" (default)
+    
+    1.4. Select your Ressource Group
+    
+    1.5. Both Regions: "West Europe"
+    
+    1.6. Review + Create > Create
+    
+    1.7. "Your deployment is complete" is displayed
+
+2. Let's then create our Natural Language Processing (NLP) Model 
+
+    2.1. Go to eu.luis.ai
+    
+    2.2. Click "New App for conversation"
+    
+    2.3. Fill Name, Culture (English) ... 
+    
+    2.4. Predictio Resource: You should be able to select the cognitive service you just created in the previous step
+    
+    2.5. Your app should appear > Clic it to open
+    
+    2.6. In the menu on the top, clic "BUILD", intents and entities are displayed on the left side menu
+    
+    2.7. Explore and check how intents and entities are built
+    
+    2.8. Click on Training (Red color means that the model was not trained yet)
+    
+    2.9. Release : Our model will be available to do inferences
+
+3. Configure bot to connect to Az Language Understanding Service (LUIS)
+
+    3.1. Open the App Service
+
+    3.2. Settings > Configuration
+    
+    3.3. Add the following Application Settings
+    
+        - LuisAPIHostName - Value: "westeurope.api.cognitive.microsoft.com"
+
+        - LuisAPIKey - Value: <your luis api key> (can be found in LUIS platform, under MANAGE > Azure Ressources)
+
+        - LuisAppId - Value: <app id>  (can be found in LUIS platform, under MANAGE > Settings)
+
+        - MicrosoftAppPassword - Value: <App password> ????????????????
+    
+4. We create a function in a seperate file that retrieves our LUIS Configuration
+
+``` javascript
+const { LuisRecognizer } = require('botbuilder-ai');
+
+class supportRecognizer {
+    constructor(config,recognizerOptions) {
+        const luisIsConfigured = config && config.applicationId && config.endpointKey && config.endpoint;
+        if (luisIsConfigured) {
+            this.recognizer = new LuisRecognizer(config, recognizerOptions);
+        }
+    }
+
+    get isConfigured() {
+        return (this.recognizer !== undefined);
+    }
+
+    async executeLuisQuery(context) {
+        return await this.recognizer.recognize(context);
+    }
+}
+module.exports.supportRecognizer = supportRecognizer;
+``` 
+
+5. We import the needed libraries and the previous function in the index.js file
+
+```javascript
+const { LuisRecognizer } = require('botbuilder-ai');
+const { supportRecognizer } = require('./bots/resources/recognizers/supportRecognizer'); // previously created function
+const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
+const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
+const recognizerOptions = {
+    apiVersion: 'v3'
+};
+const luisRecognizer = new supportRecognizer(luisConfig, recognizerOptions);
+``` 
+
+6. We pass the previously defined Recognizer to the bot at its initialization in the index.js
+
+```javascript
+const myBot = new EchoBot(luisRecognizer)
+``` 
+
+7. We define the recognizer when contructing the bot in the bot.js and we call it with the received context
+
+```javascript
+constructor(luisRecognizer) {
+        super();
+        this.recognizer = luisRecognizer;
+        this.onMessage(async (context, next) => {
+        var recognizerResults = await this.recognizer.recognize(context);
+``` 
+8. From there we just need to use the inference in our implemented logic
+
+```javascript
+if(recognizerResults.luisResult.prediction.topIntent === 'greetings'){ .... 
+``` 
+
+### Create a Waterfall dialog
+ 
+1. Import needed Libraries
+
+```javascript
+const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, ChoicePrompt, WaterfallDialog } = require('botbuilder-dialogs');
+```  
+ 
+2. Initialize Waterfall dialog
+
+ ```javascript
+const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
+```  
+ 
+3. We need to define the waterfall as part of our dialog and define all elements composing this waterfall
+ ```javascript
+class MainDialog extends ComponentDialog {
+	constructor() {
+		super('MainDialog');
+        
+        this.choicePrompt = new ChoicePrompt('ChoicePrompt'); // We can prompt the user for a choice
+        this.choicePrompt.style = 4;
+		
+		this.addDialog(new TextPrompt('TextPrompt')) // We can prompt the user for free text 
+            .addDialog(this.choicePrompt) // We include the choice prompt in this dialog
+            .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG, [ // We define the waterfall components
+                this.stepZero.bind(this)
+                , this.stepOne.bind(this)
+                , this.stepTwo.bind(this)
+                , this.stepThree.bind(this)
+            ]));
+
+        this.initialDialogId = MAIN_WATERFALL_DIALOG
+	}
+ ```  
+4. The last step here is the define the 4 functions that compose the waterfall "stepZero", "stepOne" .... for example: 
+
+ ```javascript
+async stepZero(stepContext) {
+        if (!this.luisRecognizer.isConfigured) {
+            const messageText = 'NOTE: LUIS is not properly configured.';
+            await stepContext.context.sendActivity(messageText);
+            return await stepContext.next();
+        }
+        if(stepContext.context.activity.from.name ==='You'|| stepContext.context.activity.from.name ===''){
+            /*const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'Can you please tell me your name ?';
+            const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+            return await stepContext.prompt('TextPrompt', { prompt: promptMessage });*/
+            
+            const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);                    
+            await stepContext.context.sendActivity({ attachments: [welcomeCard] });
+            const promptMessage = MessageFactory.text('', '', InputHints.ExpectingInput);
+            return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
+            
+        } else {
+            return await stepContext.next();
+        }
+    }
+    async stepOne(stepContext) {
+        console.log(stepContext.context.activity.value.username);
+        console.log(stepContext.context.activity.text);
+        const username = stepContext.context.activity.value.username;
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : `How can I help you ${username} ?`;
+        const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+        return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
+    }
+```  
+
+Finally, let's save Conversation & User States.
+    
 We need first to import libraries and to initialize the memory storage & conversation state in the index.js file
 
 ``` javascript
@@ -292,86 +471,6 @@ async run(context) {
 }
 
 ``` 
-    
-### Add NLP Capabilities to our bot
-
-1. Let's first create our NLP Model 
-
-    Go to eu.luis.ai
-    
-    Select the subscription and the authoring resource created before
-    
-    An app should appear
-    
-    Clic it to open
-    
-    In the menu on the top, clic "BUILD", intents and entities are displayed
-    
-    Explore and check how intents and entities are built
-
-
-4.	Now let's create a new node.js bot but this time we'll take the basic sample including language understanding (Basic_<number>_<name>)
-a.	Same Subscription, Resource Group, Location and Pricing Tier
-b.	App name not modified
-c.	LUIS App location => West Europe
-d.	LUIS Accounts => Create new BMW-TechExcellence-<number>
-e.	App Service Plan => Create new BMW-TechExcellence-Basic-<number> 
-f.	Insights On
-g.	App Insights Location => West Europe
-5.	We open the web app bot-service-4
-
-We create a function that retrieves our LUIS Configuration
-
-``` javascript
-const { LuisRecognizer } = require('botbuilder-ai');
-
-class supportRecognizer {
-    constructor(config) {
-        const luisIsConfigured = config && config.applicationId && config.endpointKey && config.endpoint;
-        if (luisIsConfigured) {
-            const recognizerOptions = {
-                apiVersion: 'v3'
-            };
-
-            this.recognizer = new LuisRecognizer(config, recognizerOptions);
-        }
-    }
-
-    get isConfigured() {
-        return (this.recognizer !== undefined);
-    }
-
-    async executeLuisQuery(context) {
-        return await this.recognizer.recognize(context);
-    }
-}
-module.exports.supportRecognizer = supportRecognizer;
-``` 
-
-We import the needed libraries and the previous function in the index.js file
-
-```javascript
-const { LuisRecognizer } = require('botbuilder-ai');
-const { supportRecognizer } = require('./bots/resources/recognizers/supportRecognizer');
-const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
-const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
-const recognizerOptions = {
-    apiVersion: 'v3'
-};
-const luisRecognizer = new supportRecognizer(luisConfig, recognizerOptions);
-``` 
-
-### Create a Waterfall dialog
- 
- Step A 
- 
- 
- Step B 
- 
- 
- Step CL
- 
- 
 
 # [Tipps] To run the bot locally
 - Download the bot code from the Build blade in the Azure Portal (make sure you click "Yes" when asked "Include app settings in the downloaded zip file?").
