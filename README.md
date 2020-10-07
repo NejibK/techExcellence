@@ -1,4 +1,4 @@
-# Welcome to the TechEx Operation Day
+# Welcome to the TechEx Operations Day
 
 Welcome to the TechExcellence Operations Day and thank you for your interest in AI Chatbots.
 
