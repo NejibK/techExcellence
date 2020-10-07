@@ -12,17 +12,17 @@ Welcome to the TechExcellence Operations Day and thank you for your interest in 
 
 ## Today's training agenda
 1. Create an echo chatbot in the Azure cloud
-    - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Create an echo bot](Solution_1.md)
+    - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Create an echo bot](/Solutions/Solution_1.md)
 2. The bot should greet the user differently
-    - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change the user greeting](Solution_2.md)
+    - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change the user greeting](/Solutions/Solution_2.md)
 3. The bot should respond differently based on the user's message.
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change the message processing logic](Solution_3.md)
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change the message processing logic](/Solutions/Solution_3.md)
 4. The bot should prompt the user for his name and address him using the provided name.
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Prompt users & use Rich Cards](Solution_4.md)
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Prompt users & use Rich Cards](/Solutions/Solution_4.md)
 5. The bot should be able to understand the meaning of the user's text instead of reacting based on predefined words.
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Add NLP Capabilities](Solution_5.md)
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Add NLP Capabilities](/Solutions/Solution_5.md)
 6. The bot is able to run a basic support conversation with the user, meaning that multiple diagnosis questions are asked and based on the user answers a final solution is provided.
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Create a Support Bot with a waterfall dialog](Solution_6.md) 
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Create a Support Bot with a waterfall dialog](/Solutions/Solution_6.md) 
 
 ## Additional tipps, links and documentation
 ### How to run the bot locally
