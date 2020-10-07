@@ -4,127 +4,95 @@ Welcome to the TechExcellence Operation Day and thank you for your interest into
 
 ## Login to MS Azure
 
-1. Please request your credentials to the workshop presenters, to be able to participate to the hand-on exercises.
-
+1. Please request your credentials from the workshop presenters, to be able to participate to the hand-on exercises.
 2. Launch your favorit navigator and go to: https://portal.azure.com
-
-3. Enter the username & password that were provided to you. You should be forwarded to MS Azure Home portal. 
-
-    - You should have received your credentials via Email, if you registered to this event before Noon. 
-    
+3. Enter the username & password that were provided to you. The Azure homepage should be now displayed.
+    - You should have received your credentials via Email, if you registered to this event before noon.    
     - If you didn't receive your credentials, please let us now.
-
-    - These Credentials are available for 2 days.
 
 ## Create Ressource needed
 
 1.  Create a new Web App Bot 
-
-    1.1. "+" symbol should be shown under Azure Services - or
-    
-    1.1. Expand the Menu bar of the left side of the Home portal and click on "+ Create a ressource".
-    
-    1.2. You will be forwarded to Azure Marketplace.
-    
-    1.3. Type "Web App Bot" in the search field. 
-    
-    1.4. Click "Create"
-
-2. Fill service creation form
-
-    2.1. Name your bot "Echo_number_name"
-    
-    2.2. Subscription should be automatically selected, if not select the active one
-
-    2.3. Create a new ressource group: use the naming pattern "TechExcellence_number_name"
-    
-        - A hyperlink is available under the field "create new ressource group"
-
-    2.4. Location: Germany West Central
-
-    2.5. Pricing F0 (10K first messages are free)
-
-    2.5. Appname is automatically defined (not to be changed)
-
-    2.6. SDK Language: Node.JS
-
-    2.7. Template: Echo Bot
-
-    2.8. Application Insights: Off
-    
-3. App Service & Webb App Bot will be created in your newly created Ressource Group 
-
-    - This could take up to 5 minutes 
-
-4. Search for your ressource group or your newly created service in the search bar in AZ blue header.
-
-5. Open the App Service & the Webb App Bot in two seperate browser Tabs
+    1.  Click the "+ Create a resource" icon (top left)
+    2.  You will be forwarded to Azure Marketplace.
+    3.  Type "Web App Bot" in the search field. 
+    4.  Click "Create".
+2. Fill in the service creation form
+   1. Give a cool name to your bot.
+   2. Subscription should be automatically selected, if not select the active one
+   3. Create a new ressource group: use the naming pattern "TechExcellence_*<trainee_number>*"
+        - *Hint: Use the hyperlink "create new ressource group" under the field*
+   4. Location: Germany West Central
+   5. Pricing F0 (10K first messages are free)
+   6. Appname is automatically defined (not to be changed)
+   7. Bot template:
+      1. SDK Language: Node.JS
+      2. Template: Echo Bot
+   9.  Application Insights: Off
+   10. Leave Microsoft App Id and Password on auto create.
+3. App Service & Webb App Bot will be created in your newly created Ressource Group.
+   This could take up to 5 minutes.
+4. Once the process finished, open your Resource Group.
+5. Open the App Service & the Web App Bot in two seperate browser tabs.
 
 ## Web App bot
 
-1.	In the Overview you can check your resource group, your subscription, your pricing tier and the messaging endpoint
-
-2.	Before we look into the code, let's test this echo bot > Test in Web Chat (you might need to zoom out "Ctrl -" )
-
+1.	In the Overview you can check your resource group, your subscription, your pricing tier and the messaging endpoint.
+2.	Before we look into the code, let's test this echo bot: Test in Web Chat (you might need to zoom out "Ctrl -" )
 3. Use this window to test your bot after every change in the code (next step)
-
-    3.1. For that just click "Start Over"
-    
-    3.2. A new conversation with the latest version of your code will be triggered
-    
-4. Now let's Go to the build menu and "Open online code editor" (link in the last line when you open the Build menu) or in the app service > scroll left menu until "App Service Editor (Preview)" 
+   1. For that just click "Start Over" (refresh icon)
+   2. A new conversation with the latest version of your code will be triggered
+4. Now let's check our code. There are two possibilities:
+   1. In the Web App bot: Go to the build menu and "Open online code editor" (link in the last line when you open the Build menu)
+   2. In the app service: Scroll left menu until "App Service Editor (Preview)" and click "Go ->"
 
 ## App Service
-
-1. Go to Development Tools > App Service Editor (Preview)
-
-2. Click "Go ->". A new window with your default echo-bot root opens. 
-
-3. package.json: Main dependencies
-    
-    - botbuilder: The microsoft bot framework library (latest Version)
-    
-    - dotenv: library for managing environment variables
-   
-    - restify: will allow us to create our RESTful web service
-    
-4.	index.js: 
-
-    - Middlewares implemented or that you would implement
-
-    - Endpoint of your app and how your restful web service responds when a post request is sent to the endpoint.
-
-5. bot.js: 
-
-    - Chatbot logic, states, and dialogs if not defined in different files
+1. In the menu bar on the left, you'll see a list of icons:
+   - Explore your files
+   - Search
+   - Git features
+   - Run (you'll need it to re-run your app after making changes)
+   - Output: is your stdout
+   - Console: to run commands (e.g. npm install or npm start)
+   - Go to file
+2. Let's explore the contents:
+   1. package.json: Main dependencies
+      - botbuilder: The microsoft bot framework library (latest Version)
+      - dotenv: library for managing environment variables
+      - restify: will allow us to create our RESTful web service
+   2. index.js:
+      - Middlewares implemented or that you would implement
+      - Endpoint of your app and how your restful web service responds when a post request is sent to the endpoint.
+   3. bot.js:
+       - Chatbot logic, states, and dialogs if not defined in different files
 
 ## Exercises
-
 1. *Change new user greeting*: The bot should greet the user differently
-
 2. *Change new message processing logic*: The bot should differentiate certain user inputs from the rest
-
 3. *Prompt the user for his name with a rich card*: The bot should prompt the user for his name and address him with the given name
-
 4. *Add NLP Capabilities to our bot*: The bot should be able to recognize user intent with different utterances
-
 5. *Create a Waterfall dialog*: The bot is able to implement a basic conversation flow
 
 ## Code to Exercises
 
 ### Change new user greeting
 
-1. Let's change the welcome text when a new user joins the conversation:
+Let's change the welcome text when a new user joins the conversation:
     
 ```javascript
 if (membersAdded[cnt].id !== context.activity.recipient.id) {
-await context.sendActivity('Hello and welcome to the BMW Technical Excellence Day!');
-await context.sendActivity('My name is: ' + context.activity.membersAdded[0].name);
-await context.sendActivity('I am an echo bot!');
-await context.sendActivity('You are user number:' + cnt);
-await context.sendActivity('Your id is:' + context.activity.membersAdded[cnt].id);
-await context.sendActivity('Please say something to test me.');
-console.log(context.activity.membersAdded);
+    //////////////////////////////
+    // Explore your context
+    //console.log(context);
+    //console.log(context.activity);
+    //console.log(context.activity.membersAdded);
+    //////////////////////////////
+    await context.sendActivity('Hello and welcome to the BMW Technical Excellence Day!');
+    await context.sendActivity('My name is: ' + context.activity.membersAdded[0].name);
+    await context.sendActivity('I am an echo bot!');
+    await context.sendActivity('You are user number:' + cnt);
+    await context.sendActivity('Your id is:' + context.activity.membersAdded[cnt].id);
+    await context.sendActivity('Please say something to test me.');
 }
 ```
 
@@ -133,15 +101,12 @@ console.log(context.activity.membersAdded);
 1. Let's change the echo logic triggered when the bot receives a message:
 
 ``` javascript
-
 this.onMessage(async (context, next) => {
-if (context.activity.text === "Hi"){
-await context.sendActivity(`Hello ${ context.activity.from.name }`);
-}else{
-await context.sendActivity(`You said '${ context.activity.text }'`);
-}
-console.log(context);
-
+    if (context.activity.text === "Hi"){
+        await context.sendActivity(`Hello ${ context.activity.from.name }`);
+    }else{
+        await context.sendActivity(`You said '${ context.activity.text }'`);
+    }
 ```
 
 ### Prompt the user for his name with a rich card
@@ -240,62 +205,41 @@ this.onMembersAdded(async (context, next) => {
         const welcomeText = 'Hello and welcome!';
         for (let cnt = 0; cnt < membersAdded.length; ++cnt) {
             if (membersAdded[cnt].id !== context.activity.recipient.id) {
-                const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);  // We define the card                   
-                await context.sendActivity({ attachments: [welcomeCard] }); // we send the card
+                // We create the card
+                const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);  
+                // We send it as an attachment
+                await context.sendActivity({ attachments: [welcomeCard] });
             }
         }
         // By calling next() you ensure that the next BotHandler is run.
         await next();
     });
-    
 ```
     
 ### Add NLP Capabilities to our bot (15 mn)
 
-1. Create Cognitive Services
-    
-    1.1. In your same Ressource Group, add a new service
-    
-    1.2. Search "Language Understanding"
-    
-    1.3. creation options : "both" (default)
-    
-    1.4. Select your Ressource Group
-    
-    1.5. Both Regions: "West Europe"
-    
-    1.6. Review + Create > Create
-    
-    1.7. "Your deployment is complete" is displayed
-
-2. Let's then create our Natural Language Processing (NLP) Model 
-
-    2.1. Go to eu.luis.ai
-    
-    2.2. Click "New App for conversation"
-    
-    2.3. Fill Name, Culture (English) ... 
-    
-    2.4. Predictio Resource: You should be able to select the cognitive service you just created in the previous step
-    
-    2.5. Your app should appear > Clic it to open
-    
-    2.6. In the menu on the top, clic "BUILD", intents and entities are displayed on the left side menu
-    
-    2.7. Explore and check how intents and entities are built
-    
-    2.8. Click on Training (Red color means that the model was not trained yet)
-    
-    2.9. Release : Our model will be available to do inferences
-
-3. Configure bot to connect to Az Language Understanding Service (LUIS)
-
-    3.1. Open the App Service
-
-    3.2. Settings > Configuration
-    
-    3.3. Add the following Application Settings
-    
+1. Create a new Natural Languange Processing (NLP) resource (Cognitive Services)
+   1. In your same Ressource Group, create a new resource (+)
+   2. Search for "Language Understanding"
+   3. Creation options : "both" (default)
+   4. Select your Ressource Group
+   5. Both Regions: "West Europe"
+   6. Review + Create > Create
+   7. "Your deployment is complete" is displayed
+2. Let's then create our NLP Model (MS LUIS app)
+   1. Go to eu.luis.ai
+   2. Click "New App for conversation"
+   3. Fill Name, Culture (English) ... 
+   4. Prediction Resource: You should be able to select the cognitive service you just created in the previous step
+   5. Your app should appear > Clic it to open
+   6. In the menu on the top, clic "BUILD", intents and entities are displayed on the left side menu
+   7. Explore and check how intents and entities are built
+   8. Click on Train (Red color means that the model was not trained yet)
+   9. Publish : Our model will be available to do inferences
+3. Configure your bot to connect to your LUIS app
+   1. Open the App Service
+   2. Go to Settings > Configuration
+   3. Add the following Application Settings
     - LuisAPIHostName - Value: "westeurope.api.cognitive.microsoft.com"
     - LuisAPIKey - Value: -your_luis_api_key- (can be found in LUIS platform, under MANAGE > Azure Ressources)
     - LuisAppId - Value: -app_id-  (can be found in LUIS platform, under MANAGE > Settings)
