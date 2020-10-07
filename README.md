@@ -67,16 +67,16 @@ Welcome to the TechExcellence Operation Day and thank you for your interest into
        - Chatbot logic, states, and dialogs if not defined in different files
 
 ## Exercises
-1. *Change new user greeting*: The bot should greet the user differently
-    - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change new user greeting](Solution_1.md)    
-2. *Change new message processing logic*: The bot should differentiate certain user inputs from the rest
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change new user greeting](Solution_2.md)
-4. *Prompt the user for his name with a rich card*: The bot should prompt the user for his name and address him with the given name
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change new user greeting](Solution_3.md)
-5. *Add NLP Capabilities to our bot*: The bot should be able to recognize user intent with different utterances
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change new user greeting](Solution_4.md)
-6. *Create a Waterfall dialog*: The bot is able to implement a basic conversation flow
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change new user greeting](Solution_5.md)
+1. The bot should greet the user differently
+    - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change user greeting](Solution_1.md)    
+2. The bot should respond differently based on the user's message
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change message processing logic](Solution_2.md)
+3. The bot should prompt the user for his name and address him with the given name
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Prompting & Rich Cards](Solution_3.md)
+4. The bot should be able to understand the meaning of the user's text instead of reacting based on predefined words
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Add NLP Capabilities](Solution_4.md)
+5. The bot is able to run a basic support conversation with the user
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Create a Waterfall dialog](Solution_5.md)
 
 The [icons][Icon source] used are subject to the [Creative Commons - Attribution Share Alike license][Icon Licence].
 
@@ -85,8 +85,8 @@ The [icons][Icon source] used are subject to the [Creative Commons - Attribution
 
    
 
-
-# [Tipps] To run the bot locally
+## Additional tipps, links and documentation
+### How to run the bot locally
 - Download the bot code from the Build blade in the Azure Portal (make sure you click "Yes" when asked "Include app settings in the downloaded zip file?").
     - If you clicked "No" you will need to copy all the Application Settings properties from your App Service to your local .env file.
 - Install modules
@@ -101,24 +101,20 @@ The [icons][Icon source] used are subject to the [Creative Commons - Attribution
     npm start
     ```
 
-## [Tipps] Testing the bot using Bot Framework Emulator
-
+### How to test the bot using Bot Framework Emulator
 [Bot Framework Emulator](https://github.com/microsoft/botframework-emulator) is a desktop application that allows bot developers to test and debug their bots on localhost or running remotely through a tunnel.
 
 - Install the Bot Framework Emulator version 4.9.0 or greater from [here](https://github.com/Microsoft/BotFramework-Emulator/releases)
 
-## [Tipps] Connect to the bot using Bot Framework Emulator
-
+### How to connect to the bot using Bot Framework Emulator
 - Launch Bot Framework Emulator
 - File -> Open Bot
 - Enter a Bot URL of `http://localhost:3978/api/messages`
 
-## [Tipps] Deploy the bot to Azure
-
+### How to deploy the bot to Azure
 To learn more about deploying a bot to Azure, see [Deploy your bot to Azure](https://aka.ms/azuredeployment) for a complete list of deployment instructions.
 
-## [Tipps] Further reading
-
+### Further reading
 - [Bot Framework Documentation](https://docs.botframework.com)
 - [Bot Basics](https://docs.microsoft.com/azure/bot-service/bot-builder-basics?view=azure-bot-service-4.0)
 - [Activity processing](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-concept-activity-processing?view=azure-bot-service-4.0)
