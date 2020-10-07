@@ -68,6 +68,7 @@ Welcome to the TechExcellence Operation Day and thank you for your interest into
 
 ## Exercises
 1. *Change new user greeting*: The bot should greet the user differently
+    - **Solution:** ![Change new user greeting](Solution_1.md)
 2. *Change new message processing logic*: The bot should differentiate certain user inputs from the rest
 3. *Prompt the user for his name with a rich card*: The bot should prompt the user for his name and address him with the given name
 4. *Add NLP Capabilities to our bot*: The bot should be able to recognize user intent with different utterances
@@ -240,12 +241,15 @@ this.onMembersAdded(async (context, next) => {
    1. Open the App Service
    2. Go to Settings > Configuration
    3. Add the following Application Settings
-    - LuisAPIHostName - Value: "westeurope.api.cognitive.microsoft.com"
-    - LuisAPIKey - Value: -your_luis_api_key- (can be found in LUIS platform, under MANAGE > Azure Ressources)
-    - LuisAppId - Value: -app_id-  (can be found in LUIS platform, under MANAGE > Settings)
-    - MicrosoftAppPassword - Value: -App_password- ????????????????
-    
-4. We create a function in a seperate file that retrieves our LUIS Configuration
+       - LuisAPIHostName: *westeurope.api.cognitive.microsoft.com*
+       - LuisAppId: *<app_id>*  (can be found in your LUIS app, under MANAGE > Settings)
+       - LuisAPIKey: *<your_luis_api_key>* (can be found in LUIS platform, under MANAGE > Azure Ressources > Prediction Resources > Primary or Secondary Key)   
+4. In order to call LUIS easily, we can use the **botbuilder-ai** library. But first we need to install the package: in the console,  type:
+``` shell
+npm install --save botbuilder-ai
+```
+
+5. We create a function in a seperate file that retrieves our LUIS Configuration
 
 ``` javascript
 const { LuisRecognizer } = require('botbuilder-ai');
