@@ -1,22 +1,26 @@
-# Welcome to the TechEx Operation Day  (5mn)
+# Welcome to the TechEx Operation Day
 
 Welcome to the TechExcellence Operation Day and thank you for your interest into AI Chatbots.
 
-## Login to MS Azure (10mn)
+## Login to MS Azure
 
-1. Please request your credetials  to the Workshop presenters, to be able to participate to this hand-on workshop (recommended).
+1. Please request your credentials to the workshop presenters, to be able to participate to the hand-on exercises.
 
 2. Launch your favorit navigator and go to: https://portal.azure.com
 
-3. Enter username & password that were provided to you. You should be forwarded to MS Azure Home portal.
+3. Enter the username & password that were provided to you. You should be forwarded to MS Azure Home portal. 
 
-4. These Credentials are available for XXXX TIME and enable you to XXXXX SERVICES / BUDGET ...  
+    - You should have received your credentials via Email, if you registered to this event before Noon. 
+    
+    - If you didn't receive your credentials, please let us now.
 
-## Create Ressource needed (10mn)
+    - These Credentials are available for 2 days.
+
+## Create Ressource needed
 
 1.  Create a new Web App Bot 
 
-    1.1. "+" symbol should be shown under Azure Services) - or
+    1.1. "+" symbol should be shown under Azure Services - or
     
     1.1. Expand the Menu bar of the left side of the Home portal and click on "+ Create a ressource".
     
@@ -24,21 +28,23 @@ Welcome to the TechExcellence Operation Day and thank you for your interest into
     
     1.3. Type "Web App Bot" in the search field. 
     
-    1.4. Click Create 
+    1.4. Click "Create"
 
 2. Fill service creation form
 
-    2.1. Name your bot "Echo_<number>_<name>"
+    2.1. Name your bot "Echo_number_name"
     
     2.2. Subscription should be automatically selected, if not select the active one
 
-    2.3. Create a new ressource group: use the naming pattern TechExcellence_<number>_<name>
+    2.3. Create a new ressource group: use the naming pattern "TechExcellence_number_name"
+    
+        - A hyperlink is available under the field "create new ressource group"
 
     2.4. Location: Germany West Central
 
     2.5. Pricing F0 (10K first messages are free)
 
-    2.5. Appname is automatically defined -> not to be changed
+    2.5. Appname is automatically defined (not to be changed)
 
     2.6. SDK Language: Node.JS
 
@@ -48,18 +54,17 @@ Welcome to the TechExcellence Operation Day and thank you for your interest into
     
 3. App Service & Webb App Bot will be created in your newly created Ressource Group 
 
-    This could take up to 5 minutes 
+    - This could take up to 5 minutes 
 
-4. Search for your ressource group or your newly created service in the search bar in Az blue header.
+4. Search for your ressource group or your newly created service in the search bar in AZ blue header.
 
-5. Open the App Service & the Webb App Bot in two browser Tabs
+5. Open the App Service & the Webb App Bot in two seperate browser Tabs
 
 ## Web App bot
 
-1.	In the Overview you can check your resource group, your subscription, your pricing tier and the messaging 
-endpoint
+1.	In the Overview you can check your resource group, your subscription, your pricing tier and the messaging endpoint
 
-2.	Before we look into the code, let's test this echo bot -> Test in Web Chat (you might need to zoom out "Ctrl -" )
+2.	Before we look into the code, let's test this echo bot > Test in Web Chat (you might need to zoom out "Ctrl -" )
 
 3. Use this window to test your bot after every change in the code (next step)
 
@@ -71,17 +76,17 @@ endpoint
 
 ## App Service
 
-1. Go to App Service Editor (Preview)
+1. Go to Development Tools > App Service Editor (Preview)
 
-2. Click "Go -->". A new window with your default echo-bot root opens. 
+2. Click "Go ->". A new window with your default echo-bot root opens. 
 
 3. package.json: Main dependencies
     
-    - botbuilder: The microsoft bot framework library (version 4.6)
+    - botbuilder: The microsoft bot framework library (latest Version)
     
     - dotenv: library for managing environment variables
    
-    - restify: which will allow us to create our RESTful web service
+    - restify: will allow us to create our RESTful web service
     
 4.	index.js: 
 
@@ -91,25 +96,25 @@ endpoint
 
 5. bot.js: 
 
-    - Chatbot logic, states, and dialogs
+    - Chatbot logic, states, and dialogs if not defined in different files
 
 ## Exercises
 
-1. Change new user greeting: The bot should great the user differently
+1. *Change new user greeting*: The bot should greet the user differently
 
-2. Change new message logic: The bot should differentiate certain user inputs from the rest
+2. *Change new message processing logic*: The bot should differentiate certain user inputs from the rest
 
-3. Prompt the user for his name with a rich card: The bot should prompt the user for his name and address him with the given name
+3. *Prompt the user for his name with a rich card*: The bot should prompt the user for his name and address him with the given name
 
-4. Add NLP Capabilities to our bot: The bot should be able to recognize user intent with different utterances
+4. *Add NLP Capabilities to our bot*: The bot should be able to recognize user intent with different utterances
 
-5. Create a Waterfall dialog: The bot is able to implement a basic conversation flow
+5. *Create a Waterfall dialog*: The bot is able to implement a basic conversation flow
 
 ## Code to Exercises
 
-### Change new user greeting (10 mn)
+### Change new user greeting
 
-Let's change the welcome text when a new user joins the conversation:
+1. Let's change the welcome text when a new user joins the conversation:
     
 ```javascript
 if (membersAdded[cnt].id !== context.activity.recipient.id) {
@@ -123,9 +128,9 @@ console.log(context.activity.membersAdded);
 }
 ```
 
-### Change new message logic (5mn)
+### Change new message logic
 
-Now, let's change the echo logic triggered when the bot receives a message:
+1. Let's change the echo logic triggered when the bot receives a message:
 
 ``` javascript
 
@@ -139,9 +144,9 @@ console.log(context);
 
 ```
 
-### Prompt the user for his name with a rich card (5mn)
+### Prompt the user for his name with a rich card
 
-Let's create a rich card first. This can be down with the help of the Card Designer (https://adaptivecards.io/designer/):
+1. Let's create a rich card first. This can be down with the help of the Card Designer (https://adaptivecards.io/designer/):
 
 ``` javascript
 
@@ -225,7 +230,7 @@ Let's create a rich card first. This can be down with the help of the Card Desig
 
 ```
 
-Now we want to show this newly created card to our new users:
+2. Now we want to show this newly created card to our new users:
     
 ``` javascript
 const WelcomeCard = require('./bots/resources/cards/welcomeCard.json');
@@ -291,13 +296,10 @@ this.onMembersAdded(async (context, next) => {
     
     3.3. Add the following Application Settings
     
-        - LuisAPIHostName - Value: "westeurope.api.cognitive.microsoft.com"
-
-        - LuisAPIKey - Value: <your luis api key> (can be found in LUIS platform, under MANAGE > Azure Ressources)
-
-        - LuisAppId - Value: <app id>  (can be found in LUIS platform, under MANAGE > Settings)
-
-        - MicrosoftAppPassword - Value: <App password> ????????????????
+    - LuisAPIHostName - Value: "westeurope.api.cognitive.microsoft.com"
+    - LuisAPIKey - Value: -your_luis_api_key- (can be found in LUIS platform, under MANAGE > Azure Ressources)
+    - LuisAppId - Value: -app_id-  (can be found in LUIS platform, under MANAGE > Settings)
+    - MicrosoftAppPassword - Value: -App_password- ????????????????
     
 4. We create a function in a seperate file that retrieves our LUIS Configuration
 
