@@ -1,6 +1,6 @@
 # Welcome to the TechEx Operation Day
 
-Welcome to the TechExcellence Operation Day and thank you for your interest into AI Chatbots.
+Welcome to the TechExcellence Operations Day and thank you for your interest in AI Chatbots.
 
 ## Login to MS Azure
 
@@ -10,73 +10,19 @@ Welcome to the TechExcellence Operation Day and thank you for your interest into
     - You should have received your credentials via Email, if you registered to this event before noon.    
     - If you didn't receive your credentials, please let us now.
 
-## Create Ressource needed
-
-1.  Create a new Web App Bot 
-    1.  Click the "+ Create a resource" icon (top left)
-    2.  You will be forwarded to Azure Marketplace.
-    3.  Type "Web App Bot" in the search field. 
-    4.  Click "Create".
-2. Fill in the service creation form
-   1. Give a cool name to your bot.
-   2. Subscription should be automatically selected, if not select the active one
-   3. Create a new ressource group: use the naming pattern "TechExcellence_*<trainee_number>*"
-        - *Hint: Use the hyperlink "create new ressource group" under the field*
-   4. Location: Germany West Central
-   5. Pricing F0 (10K first messages are free)
-   6. Appname is automatically defined (not to be changed)
-   7. Bot template:
-      1. SDK Language: Node.JS
-      2. Template: Echo Bot
-   9.  Application Insights: Off
-   10. Leave Microsoft App Id and Password on auto create.
-3. App Service & Webb App Bot will be created in your newly created Ressource Group.
-   This could take up to 5 minutes.
-4. Once the process finished, open your Resource Group.
-5. Open the App Service & the Web App Bot in two seperate browser tabs.
-
-## Web App bot
-
-1.	In the Overview you can check your resource group, your subscription, your pricing tier and the messaging endpoint.
-2.	Before we look into the code, let's test this echo bot: Test in Web Chat (you might need to zoom out "Ctrl -" )
-3. Use this window to test your bot after every change in the code (next step)
-   1. For that just click "Start Over" (refresh icon)
-   2. A new conversation with the latest version of your code will be triggered
-4. Now let's check our code. There are two possibilities:
-   1. In the Web App bot: Go to the build menu and "Open online code editor" (link in the last line when you open the Build menu)
-   2. In the app service: Scroll left menu until "App Service Editor (Preview)" and click "Go ->"
-
-## App Service
-1. In the menu bar on the left, you'll see a list of icons:
-   - Explore your files
-   - Search
-   - Git features
-   - Run (you'll need it to re-run your app after making changes)
-   - Output: is your stdout
-   - Console: to run commands (e.g. npm install or npm start)
-   - Go to file
-2. Let's explore the contents:
-   1. package.json: Main dependencies
-      - botbuilder: The microsoft bot framework library (latest Version)
-      - dotenv: library for managing environment variables
-      - restify: will allow us to create our RESTful web service
-   2. index.js:
-      - Middlewares implemented or that you would implement
-      - Endpoint of your app and how your restful web service responds when a post request is sent to the endpoint.
-   3. bot.js:
-       - Chatbot logic, states, and dialogs if not defined in different files
-
-## Exercises
-1. The bot should greet the user differently
-    - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change user greeting](Solution_1.md)    
-2. The bot should respond differently based on the user's message
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change message processing logic](Solution_2.md)
-3. The bot should prompt the user for his name and address him with the given name
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Prompting & Rich Cards](Solution_3.md)
-4. The bot should be able to understand the meaning of the user's text instead of reacting based on predefined words
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Add NLP Capabilities](Solution_4.md)
-5. The bot is able to run a basic support conversation with the user
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Create a Waterfall dialog](Solution_5.md)
+## Today's training agenda
+1. Create an echo chatbot in the Azure cloud
+    - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Create an echo bot](Solution_1.md)
+2. The bot should greet the user differently
+    - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change the user greeting](Solution_2.md)
+3. The bot should respond differently based on the user's message.
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Change the message processing logic](Solution_3.md)
+4. The bot should prompt the user for his name and address him using the provided name.
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Prompt users & use Rich Cards](Solution_4.md)
+5. The bot should be able to understand the meaning of the user's text instead of reacting based on predefined words.
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Add NLP Capabilities](Solution_5.md)
+6. The bot is able to run a basic support conversation with the user, meaning that multiple diagnosis questions are asked and based on the user answers a final solution is provided.
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Create a Support Bot with a waterfall dialog](Solution_6.md)
 
 The [icons][Icon source] used are subject to the [Creative Commons - Attribution Share Alike license][Icon Licence].
 
@@ -113,6 +59,9 @@ The [icons][Icon source] used are subject to the [Creative Commons - Attribution
 
 ### How to deploy the bot to Azure
 To learn more about deploying a bot to Azure, see [Deploy your bot to Azure](https://aka.ms/azuredeployment) for a complete list of deployment instructions.
+
+### All the samples you need (incl. for MS Teams bots)
+[Bot Framework samples in .NET, JS/TS and Python](https://github.com/microsoft/BotBuilder-Samples)
 
 ### Further reading
 - [Bot Framework Documentation](https://docs.botframework.com)

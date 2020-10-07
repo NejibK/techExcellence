@@ -1,112 +1,86 @@
-# Create a Waterfall dialog
- 
-1. Import needed Libraries
+# Add NLP Capabilities to our bot (15 mn)
 
-```javascript
-const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, ChoicePrompt, WaterfallDialog } = require('botbuilder-dialogs');
-```  
- 
-2. Initialize Waterfall dialog
-
- ```javascript
-const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
-```  
- 
-3. We need to define the waterfall as part of our dialog and define all elements composing this waterfall
- ```javascript
-class MainDialog extends ComponentDialog {
-	constructor() {
-		super('MainDialog');
-        
-        this.choicePrompt = new ChoicePrompt('ChoicePrompt'); // We can prompt the user for a choice
-        this.choicePrompt.style = 4;
-		
-		this.addDialog(new TextPrompt('TextPrompt')) // We can prompt the user for free text 
-            .addDialog(this.choicePrompt) // We include the choice prompt in this dialog
-            .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG, [ // We define the waterfall components
-                this.stepZero.bind(this)
-                , this.stepOne.bind(this)
-                , this.stepTwo.bind(this)
-                , this.stepThree.bind(this)
-            ]));
-
-        this.initialDialogId = MAIN_WATERFALL_DIALOG
-	}
- ```  
-4. The last step here is the define the 4 functions that compose the waterfall "stepZero", "stepOne" .... for example: 
-
- ```javascript
-async stepZero(stepContext) {
-        if (!this.luisRecognizer.isConfigured) {
-            const messageText = 'NOTE: LUIS is not properly configured.';
-            await stepContext.context.sendActivity(messageText);
-            return await stepContext.next();
-        }
-        if(stepContext.context.activity.from.name ==='You'|| stepContext.context.activity.from.name ===''){
-            /*const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'Can you please tell me your name ?';
-            const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-            return await stepContext.prompt('TextPrompt', { prompt: promptMessage });*/
-            
-            const welcomeCard = CardFactory.adaptiveCard(WelcomeCard);                    
-            await stepContext.context.sendActivity({ attachments: [welcomeCard] });
-            const promptMessage = MessageFactory.text('', '', InputHints.ExpectingInput);
-            return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
-            
-        } else {
-            return await stepContext.next();
-        }
-    }
-    async stepOne(stepContext) {
-        console.log(stepContext.context.activity.value.username);
-        console.log(stepContext.context.activity.text);
-        const username = stepContext.context.activity.value.username;
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : `How can I help you ${username} ?`;
-        const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-        return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
-    }
-```  
-
-Finally, let's save Conversation & User States.
-    
-We need first to import libraries and to initialize the memory storage & conversation state in the index.js file
-
-``` javascript
-
-const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
-const memoryStorage = new MemoryStorage();
-const conversationState = new ConversationState(memoryStorage);
-const userState = new UserState(memoryStorage);
-
-    ```
- We need to pass all these variables to the bot constructor
-
-``` javascript
-
-const myBot = new EchoBot(conversationState, userState); 
-
-``` 
-    
-We pass these variables to the code in bot.js 
-
-``` javascript
-
-constructor(conversationState, userState) {
-super();
-if (!conversationState) throw new Error('[DialogBot]: Missing parameter. conversationState is required');
-if (!userState) throw new Error('[DialogBot]: Missing parameter. userState is required');
-this.conversationState = conversationState;
-this.userState = userState;
-this.dialogState = this.conversationState.createProperty('DialogState'); 
-
-``` 
-  
-Finally we override the ActivityHandler.run() method to save state changes after the bot logic completes.
-   
-``` javascript
-async run(context) {
-    await super.run(context);
-    // Save any state changes. The load happened during the execution of the Dialog.
-    await this.conversationState.saveChanges(context, false);
-    await this.userState.saveChanges(context, false);
-}
+1. Create a new Natural Languange Processing (NLP) resource (Cognitive Services)
+   1. In your same Ressource Group, create a new resource (+)
+   2. Search for "Language Understanding"
+   3. Creation options : "both" (default)
+   4. Select your Ressource Group
+   5. Both Regions: "West Europe"
+   6. Review + Create > Create
+   7. "Your deployment is complete" is displayed
+2. Let's then create our NLP Model (MS LUIS app)
+   1. Go to eu.luis.ai
+   2. Click "New App for conversation"
+   3. Fill Name, Culture (English) ... 
+   4. Prediction Resource: You should be able to select the cognitive service you just created in the previous step
+   5. Your app should appear > Clic it to open
+   6. In the menu on the top, clic "BUILD", intents and entities are displayed on the left side menu
+   7. Explore and check how intents and entities are built
+   8. Click on Train (Red color means that the model was not trained yet)
+   9. Publish : Our model will be available to do inferences
+3. Add the parameters of your LUIS app as environment variables to your bot:
+   1. Open the App Service
+   2. Go to Settings > Configuration
+   3. Add the following Application Settings
+      - LuisAPIHostName: *westeurope.api.cognitive.microsoft.com*
+      - LuisAppId: *<app_id>*  (can be found in your LUIS app, under MANAGE > Settings)
+      - LuisAPIKey: *<your_luis_api_key>* (can be found in LUIS platform, under MANAGE > Azure Ressources > Prediction Resources > Primary or Secondary Key)
+   4. Don't forget to **Save**     
+4. In order to call LUIS easily, we can use the **botbuilder-ai** library. But first, we need to install the package: in the console,  type:
+``` bash
+npm install --save botbuilder-ai
 ```
+5. We create a function in a seperate file that retrieves our LUIS Configuration (*/bots/resources/recognizers/supportRecognizer.js*)
+``` javascript
+const { LuisRecognizer } = require('botbuilder-ai');
+
+class supportRecognizer {
+    constructor(config) {
+        const luisIsConfigured = config && config.applicationId && config.endpointKey && config.endpoint;
+        if (luisIsConfigured) {
+            const recognizerOptions = {
+                apiVersion: 'v3'
+            };
+            this.recognizer = new LuisRecognizer(config, recognizerOptions);
+        }
+    }
+
+    get isConfigured() {
+        return (this.recognizer !== undefined);
+    }
+
+    async executeLuisQuery(context) {
+        return await this.recognizer.recognize(context);
+    }
+}
+module.exports.supportRecognizer = supportRecognizer;
+``` 
+6. We import the needed libraries and the previous function in the *index.js* file
+```javascript
+const { supportRecognizer } = require('./bots/resources/recognizers/supportRecognizer'); // path of the previously created recognizer
+
+// The following line should not be pasted before: dotenv.config({ path: ENV_FILE });
+const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
+const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
+const luisRecognizer = new supportRecognizer(luisConfig);
+``` 
+7. We pass the previously defined Recognizer to the bot at its initialization in the index.js
+```javascript
+const myBot = new EchoBot(luisRecognizer)
+``` 
+8. Since we are passing the recognizer as a parameter, we need to add it to our constructor. Then we can use it once a message is received.
+```javascript
+// add the parameter
+constructor(luisRecognizer) {
+        super();
+        // assign it
+        this.recognizer = luisRecognizer;
+        
+        this.onMessage(async (context, next) => {
+        // use it
+        var recognizerResults = await this.recognizer.recognize(context);
+``` 
+9. Now instead of building our condition based on text (*"Hello* or *Hi*), we use the inference from our NLP Model:
+```javascript
+    if(recognizerResults.luisResult.prediction.topIntent === 'greetings'){ .... 
+``` 

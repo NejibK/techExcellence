@@ -1,15 +1,20 @@
-# Change new message logic
+# Change new user greeting
 
-Let's change the echo logic triggered when the bot receives a message:
-
-``` javascript
-this.onMessage(async (context, next) => {
-    if (context.activity.text === "Hi"){
-        // context.activity contains the text sent by the user.
-        // In our case, since we are using the webchat channel in the Azure portal for testing, the name given to the user is always: 'You'
-        // In other cases, when using channels like facebook messenger or skype, the username is retrieved (if the api of the channel sends it of course).
-        await context.sendActivity(`Hello ${ context.activity.from.name }`);
-    }else{
-        await context.sendActivity(`You said '${ context.activity.text }'`);
-    }
+Let's change the welcome text when a new user joins the conversation:
+    
+```javascript
+if (membersAdded[cnt].id !== context.activity.recipient.id) {
+    //////////////////////////////
+    // Explore your context
+    //console.log(context);
+    //console.log(context.activity);
+    //console.log(context.activity.membersAdded);
+    //////////////////////////////
+    await context.sendActivity('Hello and welcome to the BMW Technical Excellence Day!');
+    await context.sendActivity('My name is: ' + context.activity.membersAdded[0].name);
+    await context.sendActivity('I am an echo bot!');
+    await context.sendActivity('You are user number:' + cnt);
+    await context.sendActivity('Your id is:' + context.activity.membersAdded[cnt].id);
+    await context.sendActivity('Please say something to test me.');
+}
 ```
