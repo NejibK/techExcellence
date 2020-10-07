@@ -22,14 +22,7 @@ Welcome to the TechExcellence Operations Day and thank you for your interest in 
 5. The bot should be able to understand the meaning of the user's text instead of reacting based on predefined words.
    - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Add NLP Capabilities](Solution_5.md)
 6. The bot is able to run a basic support conversation with the user, meaning that multiple diagnosis questions are asked and based on the user answers a final solution is provided.
-   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Create a Support Bot with a waterfall dialog](Solution_6.md)
-
-The [icons][Icon source] used are subject to the [Creative Commons - Attribution Share Alike license][Icon Licence].
-
-[Icon source]: https://launchpad.net/human-icon-theme/
-[Icon Licence]: https://bazaar.launchpad.net/~ubuntu-art-pkg/human-icon-theme/ubuntu/view/head:/COPYING
-
-   
+   - **Solution:** [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Human-dialog-info.svg/128px-Human-dialog-info.svg.png" alt="drawing" width="24"/> Create a Support Bot with a waterfall dialog](Solution_6.md) 
 
 ## Additional tipps, links and documentation
 ### How to run the bot locally
@@ -76,3 +69,8 @@ To learn more about deploying a bot to Azure, see [Deploy your bot to Azure](htt
 - [Channels and Bot Connector Service](https://docs.microsoft.com/en-us/azure/bot-service/bot-concepts?view=azure-bot-service-4.0)
 - [Restify](https://www.npmjs.com/package/restify)
 - [dotenv](https://www.npmjs.com/package/dotenv)
+
+##### The [icons][Icon source] used are subject to the [Creative Commons - Attribution Share Alike license][Icon Licence].
+
+[Icon source]: https://launchpad.net/human-icon-theme/
+[Icon Licence]: https://bazaar.launchpad.net/~ubuntu-art-pkg/human-icon-theme/ubuntu/view/head:/COPYING
